@@ -108,9 +108,9 @@ Com base nos códigos e documentação disponibilizados neste e no [segundo repo
 ### WebTrap
 
 - Linux (Ubuntu 22.04+, Debian 12+ ou equivalente)
-- CPU: mínimo de 2 núcleos (recomendado: 4+)
-- RAM: mínimo de 2 GB (recomendado: 4 GB+)
-- Espaço em disco: mínimo de 5 GB
+- CPU: mínimo de 4 núcleos (recomendado: 8+)
+- RAM: mínimo de 4 GB (recomendado: 8 GB+)
+- Espaço em disco: mínimo de 10 GB
 - Interface de rede
 
 ### Treinamento e Teste de Modelos de Aprendizado de Máquina
@@ -118,14 +118,14 @@ Com base nos códigos e documentação disponibilizados neste e no [segundo repo
 - Linux
 - CPU: mínimo de 4 núcleos (recomendado: 8+)
 - RAM: mínimo de 4 GB (recomendado: 8 GB+)
-- Espaço em disco: mínimo de 5 GB
+- Espaço em disco: mínimo de 10 GB
 
 ### Teste de Requisições Benignas e Ferramentas Automatizadas
 
 - Linux
-- CPU: mínimo de 2 núcleos (recomendado: 4+)
-- RAM: mínimo de 2 GB (recomendado: 4 GB+)
-- Espaço em disco: mínimo de 5 GB
+- CPU: mínimo de 4 núcleos (recomendado: 8+)
+- RAM: mínimo de 4 GB (recomendado: 8 GB+)
+- Espaço em disco: mínimo de 10 GB
 
 
 ## Software
@@ -428,6 +428,9 @@ sudo -i
 # Navegue até o diretório do WebTrap
 cd /home/{SEU_USUARIO}/webtrap-sbseg26
 
+# Ative o ambiente virtual
+source venv/bin/activate
+
 # Substitua {PORTA} pela porta desejada
 python3 app.py -p {PORTA}
 ```
@@ -617,7 +620,7 @@ python3 test_benign_requests.py -i -v _final
 python3 test_benign_requests.py -v 0
 
 # Testa o modelo RF pré-treinado com somente features TF-IDF, com 2000 requisições
-python3 test_benign_requests.py -i -v _tfidf -r 2000
+python3 test_benign_requests.py -it -v _tfidf -r 2000
 ```
 
 
@@ -824,6 +827,7 @@ Onde:
 **Exemplo de cálculo:**
 
 Taxa_FP_Simples  (sem -s)  = 31.8%
+
 Taxa_FP_Complexo (com -s)  = 51.2%
 
 Taxa_FP_Final = (31.8 + 51.2 * 0.7) / 2
@@ -991,8 +995,8 @@ Os seguintes experimentos foram realizados utilizando uma máquina virtual Kali 
 
 **Kali Linux**
 
-- 2 GB RAM;
-- 2 CPUs;
+- 4 GB RAM;
+- 4 CPUs;
 
 **Linux Mint**
 
@@ -1087,11 +1091,17 @@ Are you sure that you want to continue with further target testing? [Y/n] Y
 
 Para verificar a taxa de detecção do modelo, é possível analisar pelos dados impressos no terminal do WebTrap (por estar no modo de debug) ou analisando cuidadosamente pelo arquivo de log `requests.ndjson` em `honeypot/logs`.
 
-O segundo método foi utilizado para medir a acurácia da ferramenta, filtrando as requisições por "Valid" pelo atalho CTRL+F.
+Pelo terminal, basta fazer o cálculo (lembre-se de reiniciar o WebTrap entre testes para obter os números referententes a cade teste individualmente):
+
+```text
+Taxa de Detecção = Total Mal. / Total Req.
+```
+
+O segundo método foi utilizado para medir a acurácia da ferramenta, filtrando as requisições por "Valid" pelo atalho CTRL+F utilizando um editor de texto.
 
 É esperado que a taxa de detecção final esteja aproximada de 99%.
 
-> ⚠️ IMPORTANTE: Em algum ponto de sua execução, o *sqlmap* realiza ataques com payloads no `User-Agent`, que não é englobado pelo modelo de detecção do WebTrap e com isso gerará diversos falsos negativos. Nessa etapa os testes foram interrompidos, e essas requisições desconsideradas do cálculo final.
+> ⚠️ IMPORTANTE: Em algum ponto de sua execução (antes ou depois da quantidade de requisições na tabela), o *sqlmap* realiza ataques com payloads no `User-Agent`, que não é englobado pelo modelo de detecção do WebTrap e com isso gerará diversos falsos negativos. Nessa etapa os testes foram interrompidos, e essas requisições desconsideradas do cálculo final.
 
 
 ### B. XSSER
@@ -1152,7 +1162,13 @@ python3 xsser -u http://192.168.1.2:5000/login -p 'username=XSS&pass=' --auto
 
 Para verificar a taxa de detecção do modelo, é possível analisar pelos dados impressos no terminal do WebTrap (por estar no modo de debug) ou analisando cuidadosamente pelo arquivo de log `requests.ndjson` em `honeypot/logs`.
 
-O segundo método foi utilizado para medir a acurácia da ferramenta, filtrando as requisições por "Valid" pelo atalho CTRL+F.
+Pelo terminal, basta fazer o cálculo (lembre-se de reiniciar o WebTrap entre testes para obter os números referententes a cade teste individualmente):
+
+```text
+Taxa de Detecção = Total Mal. / Total Req.
+```
+
+O segundo método foi utilizado para medir a acurácia da ferramenta, filtrando as requisições por "Valid" pelo atalho CTRL+F utilizando um editor de texto.
 
 É esperado que a taxa de detecção final esteja aproximada de 99%.
 
@@ -1217,7 +1233,13 @@ python3 commix.py --method='POST' --data="username=&pass=" -u http://192.168.1.2
 
 Para verificar a taxa de detecção do modelo, é possível analisar pelos dados impressos no terminal do WebTrap (por estar no modo de debug) ou analisando cuidadosamente pelo arquivo de log `requests.ndjson` em `honeypot/logs`.
 
-O segundo método foi utilizado para medir a acurácia da ferramenta, filtrando as requisições por "Valid" pelo atalho CTRL+F.
+Pelo terminal, basta fazer o cálculo (lembre-se de reiniciar o WebTrap entre testes para obter os números referententes a cade teste individualmente):
+
+```text
+Taxa de Detecção = Total Mal. / Total Req.
+```
+
+O segundo método foi utilizado para medir a acurácia da ferramenta, filtrando as requisições por "Valid" pelo atalho CTRL+F utilizando um editor de texto.
 
 É esperado que a taxa de detecção final esteja aproximada de 97%.
 
@@ -1279,7 +1301,13 @@ wfuzz -c -z file,/usr/share/wfuzz/wordlist/Injections/Traversal.txt "http://192.
 
 Para verificar a taxa de detecção do modelo, é possível analisar pelos dados impressos no terminal do WebTrap (por estar no modo de debug) ou analisando cuidadosamente pelo arquivo de log `requests.ndjson` em `honeypot/logs`.
 
-O segundo método foi utilizado para medir a acurácia da ferramenta, filtrando as requisições por "Valid" pelo atalho CTRL+F.
+Pelo terminal, basta fazer o cálculo (lembre-se de reiniciar o WebTrap entre testes para obter os números referententes a cade teste individualmente):
+
+```text
+Taxa de Detecção = Total Mal. / Total Req.
+```
+
+O segundo método foi utilizado para medir a acurácia da ferramenta, filtrando as requisições por "Valid" pelo atalho CTRL+F utilizando um editor de texto.
 
 É esperado que a taxa de detecção final esteja aproximada de 94%.
 
