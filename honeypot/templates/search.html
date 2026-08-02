@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta Pública — Portal de Serviços Públicos</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="container">
+    <div class="gov-brand">
+      <span class="dot"></span>
+      gov.br
+    </div>
+    <ul class="access-links">
+      <li><a href="#">Acessibilidade</a></li>
+      <li><a href="#">Alto Contraste</a></li>
+      <li><a href="#">Mapa do Site</a></li>
+    </ul>
+  </div>
+</div>
+
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-logo">
+        <div class="gov-seal">BR</div>
+        <div class="logo-text">
+          <h1>Portal de Serviços Públicos</h1>
+          <p>Ministério da Gestão e Inovação em Serviços Públicos</p>
+        </div>
+      </div>
+      <div class="header-badge">Sistema operacional</div>
+    </div>
+  </div>
+</header>
+
+<nav class="main-nav">
+  <div class="container">
+    <a href="/">Início</a>
+    <a href="/login">Acesso ao Sistema</a>
+    <a href="/search" class="active">Consulta Pública</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li><a href="/">Início</a></li>
+      <li>Consulta Pública</li>
+    </ul>
+    <h1>Consulta de Registros Públicos</h1>
+    <p>Pesquise processos, certidões e registros disponíveis no banco de dados federal.</p>
+  </div>
+</div>
+
+<main>
+  <div class="container">
+
+    <div class="card" style="margin-bottom: 1.5rem;">
+      <div class="card-body">
+        <form action="/search" method="GET">
+          <label style="display:block; font-size:12px; font-weight:600;
+                        font-family: var(--font-head); letter-spacing:.08em;
+                        text-transform:uppercase; color:var(--text-muted);
+                        margin-bottom: 8px;">
+            Número do registro, CPF, CNPJ ou nome
+          </label>
+          <div class="search-bar">
+            <input class="form-control" type="text" name="q"
+                   placeholder="Ex: João Silva, 000.000.000-00, 2024/00123..."
+                   value="{{ query or '' }}">
+            <button type="submit" class="btn btn-primary">🔍 Pesquisar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    {% if query %}
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">📋</div>
+        <div>
+          <h2>Resultados da Consulta</h2>
+          <p class="search-result-meta">
+            Pesquisa por: <strong>{{ query }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="card-body">
+        {% if error %}
+        <pre style="font-size: 12px; color: #c0392b; white-space: pre-wrap;
+                    font-family: monospace; margin: 0;">{{ error | safe }}</pre>
+        {% else %}
+        <div class="info-box">
+          Nenhum registro público encontrado para o termo informado.
+          Verifique os dados e tente novamente, ou acesse o
+          <a href="/login">sistema autenticado</a> para consultas restritas.
+        </div>
+
+        <p class="text-muted">Sugestões:</p>
+        <ul style="font-size:13px; color:var(--text-muted);
+                   margin: 8px 0 0 1.2rem; line-height: 2;">
+          <li>Verifique a grafia do nome ou número informado</li>
+          <li>Tente usar apenas parte do nome ou número</li>
+          <li>Para consultas sigilosas, utilize o <a href="/login">acesso autenticado</a></li>
+          <li>Consulte o <a href="#">manual de consulta pública</a> para mais informações</li>
+        </ul>
+        {% endif %}
+
+      </div>
+    </div>
+
+    {% else %}
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">ℹ️</div>
+        <div>
+          <h2>Como utilizar a consulta</h2>
+          <p>Instruções para pesquisa no banco de dados federal</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+                    gap: 1rem;">
+          <div style="padding: 16px; background: var(--bg); border-radius: var(--radius);
+                      border: 1px solid var(--border-light);">
+            <div style="font-size: 22px; margin-bottom: 8px;">📄</div>
+            <div style="font-family: var(--font-head); font-weight: 600;
+                        font-size: 14px; color: var(--gov-blue); margin-bottom: 4px;">
+              Processos Administrativos
+            </div>
+            <div style="font-size: 12px; color: var(--text-muted);">
+              Consulte pelo número do processo no formato AAAA/NNNNN
+            </div>
+          </div>
+          <div style="padding: 16px; background: var(--bg); border-radius: var(--radius);
+                      border: 1px solid var(--border-light);">
+            <div style="font-size: 22px; margin-bottom: 8px;">👤</div>
+            <div style="font-family: var(--font-head); font-weight: 600;
+                        font-size: 14px; color: var(--gov-blue); margin-bottom: 4px;">
+              Registros de Pessoa
+            </div>
+            <div style="font-size: 12px; color: var(--text-muted);">
+              Pesquise por CPF, nome completo ou número de matrícula
+            </div>
+          </div>
+          <div style="padding: 16px; background: var(--bg); border-radius: var(--radius);
+                      border: 1px solid var(--border-light);">
+            <div style="font-size: 22px; margin-bottom: 8px;">🏢</div>
+            <div style="font-family: var(--font-head); font-weight: 600;
+                        font-size: 14px; color: var(--gov-blue); margin-bottom: 4px;">
+              Pessoa Jurídica
+            </div>
+            <div style="font-size: 12px; color: var(--text-muted);">
+              Consulte pelo CNPJ ou razão social da empresa
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-brand">Portal Nacional de Serviços Públicos</span>
+      <ul class="footer-links">
+        <li><a href="#">Política de Privacidade</a></li>
+        <li><a href="#">Termos de Uso</a></li>
+        <li><a href="#">LGPD</a></li>
+      </ul>
+    </div>
+    <div class="footer-copy">
+      <span>© 2024 Governo Federal — Todos os direitos reservados</span>
+      <span>CNPJ: 00.394.460/0572-30 — Esplanada dos Ministérios, Brasília – DF</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

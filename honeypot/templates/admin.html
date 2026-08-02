@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo — SGI Federal</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="container">
+    <div class="gov-brand">
+      <span class="dot"></span>
+      gov.br — <span style="color:var(--gov-yellow); margin-left:4px;">Área Restrita</span>
+    </div>
+    <ul class="access-links">
+      <li><a href="#">admin@sgi.gov.br</a></li>
+      <li><a href="/login">Sair</a></li>
+    </ul>
+  </div>
+</div>
+
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-logo">
+        <div class="gov-seal">BR</div>
+        <div class="logo-text">
+          <h1>SGI — Sistema de Gestão Integrado</h1>
+          <p>Painel Administrativo Federal · Acesso Nível 3</p>
+        </div>
+      </div>
+      <div class="header-badge">Sessão ativa</div>
+    </div>
+  </div>
+</header>
+
+<nav class="main-nav">
+  <div class="container">
+    <a href="/login/admin" class="active">Dashboard</a>
+    <a href="/login/admin/users">Usuários</a>
+    <a href="/login/admin/config">Configurações</a>
+    <a href="/login">Sair</a>
+  </div>
+</nav>
+
+<main>
+  <div class="container" style="padding-top: 2rem;">
+
+    <div style="display:flex; align-items:center; justify-content:space-between;
+                margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h2 style="font-family:var(--font-head); font-size:20px; font-weight:700;
+                   color:var(--gov-dark); letter-spacing:.02em;">
+          Painel de Controle
+        </h2>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:2px;">
+          Última atualização: hoje às 08:42 · Ambiente: Produção
+        </p>
+      </div>
+      <span class="badge badge-green" style="font-size: 12px; padding: 5px 12px;">
+        ● Sistema Online
+      </span>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-item">
+        <span class="si-label">Usuários ativos</span>
+        <span class="si-value">1.847</span>
+        <span class="si-sub">↑ 3% vs. ontem</span>
+      </div>
+      <div class="status-item">
+        <span class="si-label">Requisições/hora</span>
+        <span class="si-value">23.410</span>
+        <span class="si-sub">Pico: 41.200</span>
+      </div>
+      <div class="status-item">
+        <span class="si-label">Banco de dados</span>
+        <span class="si-value" style="color:var(--gov-green);">Conectado</span>
+        <span class="si-sub">MySQL 5.7 · 127.0.0.1</span>
+      </div>
+      <div class="status-item">
+        <span class="si-label">Uptime</span>
+        <span class="si-value">99,8%</span>
+        <span class="si-sub">Últimos 30 dias</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 1.5rem;">
+      <div class="card-header">
+        <div class="card-icon">👥</div>
+        <div>
+          <h2>Usuários do Sistema</h2>
+          <p>Contas com acesso ao painel administrativo</p>
+        </div>
+      </div>
+      <div class="card-body" style="padding: 0;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Usuário</th>
+              <th>E-mail</th>
+              <th>Permissão</th>
+              <th>Último acesso</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--text-muted); font-size:12px;">#001</td>
+              <td><strong>admin</strong></td>
+              <td style="color:var(--text-muted);">admin@sgi.gov.br</td>
+              <td><span class="badge badge-red">Superuser</span></td>
+              <td style="font-size:12px; color:var(--text-muted);">Agora</td>
+              <td><span class="badge badge-green">Ativo</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted); font-size:12px;">#002</td>
+              <td>operator</td>
+              <td style="color:var(--text-muted);">operador@sgi.gov.br</td>
+              <td><span class="badge badge-blue">Viewer</span></td>
+              <td style="font-size:12px; color:var(--text-muted);">14/03/2024 09:12</td>
+              <td><span class="badge badge-green">Ativo</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted); font-size:12px;">#003</td>
+              <td>auditor</td>
+              <td style="color:var(--text-muted);">auditoria@sgi.gov.br</td>
+              <td><span class="badge badge-blue">Auditor</span></td>
+              <td style="font-size:12px; color:var(--text-muted);">11/03/2024 17:44</td>
+              <td><span class="badge badge-green">Ativo</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🖥️</div>
+        <div>
+          <h2>Informações do Servidor</h2>
+          <p>Ambiente de produção — dados de configuração</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 13px;">
+          <div style="display:flex; flex-direction:column; gap: .5rem;">
+            <div style="display:flex; justify-content:space-between; padding: 8px 0;
+                        border-bottom: 1px solid var(--border-light);">
+              <span style="color:var(--text-muted);">Sistema operacional</span>
+              <span>Ubuntu 20.04 LTS</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding: 8px 0;
+                        border-bottom: 1px solid var(--border-light);">
+              <span style="color:var(--text-muted);">Servidor web</span>
+              <span>Apache/2.4.49</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding: 8px 0;
+                        border-bottom: 1px solid var(--border-light);">
+              <span style="color:var(--text-muted);">PHP</span>
+              <span>7.4.3</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding: 8px 0;">
+              <span style="color:var(--text-muted);">MySQL</span>
+              <span>5.7.38</span>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap: .5rem;">
+            <div style="display:flex; justify-content:space-between; padding: 8px 0;
+                        border-bottom: 1px solid var(--border-light);">
+              <span style="color:var(--text-muted);">IP interno</span>
+              <span>192.168.1.1</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding: 8px 0;
+                        border-bottom: 1px solid var(--border-light);">
+              <span style="color:var(--text-muted);">Porta</span>
+              <span>80 / 443</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding: 8px 0;
+                        border-bottom: 1px solid var(--border-light);">
+              <span style="color:var(--text-muted);">Document root</span>
+              <span>/var/www/html</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding: 8px 0;">
+              <span style="color:var(--text-muted);">Config PHP</span>
+              <span>/etc/php/7.4/php.ini</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-brand">SGI — Sistema de Gestão Integrado · Federal</span>
+      <ul class="footer-links">
+        <li><a href="#">Documentação</a></li>
+        <li><a href="#">Suporte técnico</a></li>
+        <li><a href="/login">Sair</a></li>
+      </ul>
+    </div>
+    <div class="footer-copy">
+      <span>© 2024 Governo Federal — Uso interno. Acesso monitorado.</span>
+      <span>Sessão ID: sgi_4f3a9b2c1d · TLS 1.3</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Ambientes Virtuais
+venv/
+.venv/
+env/
+
+# Secrets
+.env
+
+# Modelos gerados localmente
+training/request_model_versions/*.pkl
+training/attack_model_versions/*.pkl
+
+# Editor
+Thumbs.db
+.idea/
+.vscode/
