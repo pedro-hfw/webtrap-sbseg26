@@ -1110,17 +1110,21 @@ Este experimento visa reproduzir os resultados obtidos na **Tabela 5** do artigo
 
 <img src="img/reivindicacao_4.png" width="600">
 
-#### Instalação do XSSER
+#### Instalação do XSSER e dependências
 
 Caso não possua a ferramenta instalada, siga as instruções em https://github.com/epsylon/xsser ou o passo a passo abaixo:
 
 ```bash
 sudo apt update
 
+sudo apt install git python3 python3-pip python3-pycurl python3-bs4 python3-geoip2 python3-gi python3-cairocffi python3-selenium
+
 git clone https://github.com/epsylon/xsser.git
 
 cd xsser
 ```
+
+> **Nota**: A instalação das dependências do XSSER pode demorar alguns minutos. Recomenda-se usar a versão instalada na máquina Kali Linux nesse caso.
 
 Siga os passos abaixo para reproduzir o experimento:
 
