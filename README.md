@@ -1114,6 +1114,8 @@ Este experimento visa reproduzir os resultados obtidos na **Tabela 5** do artigo
 
 Caso não possua a ferramenta instalada, siga as instruções em https://github.com/epsylon/xsser ou o passo a passo abaixo:
 
+**git**
+
 ```bash
 sudo apt update
 
@@ -1124,7 +1126,15 @@ git clone https://github.com/epsylon/xsser.git
 cd xsser
 ```
 
-> **Nota**: A instalação das dependências do XSSER pode demorar alguns minutos. Recomenda-se usar a versão instalada na máquina Kali Linux nesse caso.
+**Kali Linux**
+
+```bash
+sudo apt update
+
+sudo apt-get install xsser
+```
+
+> **Nota**: A instalação das dependências do XSSER pode demorar alguns minutos. Recomenda-se fazer a instalação via apt na máquina Kali Linux nesse caso.
 
 Siga os passos abaixo para reproduzir o experimento:
 
