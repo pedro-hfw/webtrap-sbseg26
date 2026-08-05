@@ -273,6 +273,8 @@ Arquivos:
 
 # Instalação
 
+> **Nota:** Caso encontre alguns erros, verifique se as dependências de python, venv e pip estão instaladas conforme a seção [Dependências](#script-de-instalação-do-python-pip-e-venv).
+
 ### 1. Clone o repositório e entre em seu diretório
 
 ```bash
@@ -305,7 +307,7 @@ Abra o arquivo `.env` e substitua o valor de `SECRET_KEY`. Você pode gerar um n
 python3 -c "import secrets; print(secrets.token_hex(32))"
 ```
 
-Por exemplo:
+Exemplo de uso dos comandos:
 
 ```bash
 cp .env.example .env
@@ -405,12 +407,23 @@ O `app.py` aceita as seguintes flags para alterar sua configuração:
 > ⚠️ As flags `-n` e `-t` só funcionam em conjunto com `--debug`. Utilizá-las sem `--debug` causará encerramento do programa com mensagem de alerta. Além disso, as flags `-n` e `-t` são mutuamente exclusivas.
 
 Exemplos:
+
 ```bash
 python3 app.py -e
+```
+```bash
 python3 app.py -p 8080
+```
+```bash
 python3 app.py -e -p 9090
+```
+```bash
 python3 app.py --debug
+```
+```bash
 python3 app.py --debug -n
+```
+```bash
 python3 app.py --debug -t
 ```
 
@@ -475,11 +488,15 @@ Para treinar o modelo de detecção de requisições maliciosas:
 
 ```bash
 python3 train_request_model.py -a XGB
+```
+```bash
 python3 train_request_model.py -a RF
-
+```
+```bash
 # Treinar somente com features numéricas:
 python3 train_request_model.py -a RF -n
-
+```
+```bash
 # Treinar somente com features textuais (TF-IDF):
 python3 train_request_model.py -a RF -t
 ```
@@ -488,6 +505,8 @@ Para treinar o modelo de classificação de ataques:
 
 ```bash
 python3 train_attack_model.py -a XGB
+```
+```bash
 python3 train_attack_model.py -a RF
 ```
 
@@ -569,7 +588,11 @@ Exemplos de execução:
 
 ```bash
 python3 test_benign.py -r 500
+```
+```bash
 python3 test_benign.py -r 100 -s
+```
+```bash
 python3 test_benign.py -H "192.168.1.5" -p 8080
 ```
 
@@ -615,10 +638,12 @@ Exemplos de execução:
 ```bash
 # Testa o modelo RF final pré-treinado com 500 requisições
 python3 test_benign_requests.py -i -v _final
-
+```
+```bash
 # Testa o modelo RF versão 0 (recém-treinado) com features combinadas
 python3 test_benign_requests.py -v 0
-
+```
+```bash
 # Testa o modelo RF pré-treinado com somente features TF-IDF, com 2000 requisições
 python3 test_benign_requests.py -it -v _tfidf -r 2000
 ```
@@ -692,13 +717,16 @@ O script utilizado para treinar os modelos de detecção foi `train_request_mode
 ```bash
 # Random Forest - Somente TF-IDF
 python3 train_request_model.py -t -a RF
-
+```
+```bash
 # Random Forest - Somente Numéricas
 python3 train_request_model.py -n -a RF
-
+```
+```bash
 # Random Forest - Combinação
 python3 train_request_model.py -a RF
-
+```
+```bash
 # XGBoost - Combinação
 python3 train_request_model.py -a XGB
 ```
@@ -757,50 +785,60 @@ A diferença entre os dois cenários é importante para avaliar a robustez do mo
 
 **Modelos pré-treinados** (pasta `important_request_models`):
 
-```bash
-# --- Modelo RF com somente features numéricas ---
 
+**Modelo RF — Somente Numéricas:**
+```bash
 # Senhas simples (sem a flag -s)
 python3 test_benign_requests.py -in -v _numeric -r 2000
-
+```
+```bash
 # Senhas complexas (com a flag -s)
 python3 test_benign_requests.py -isn -v _numeric -r 2000
+```
 
-# --- Modelo RF com somente features TF-IDF ---
-
+**Modelo RF — Somente TF-IDF:**
+```bash
 # Senhas simples
 python3 test_benign_requests.py -it -v _tfidf -r 2000
-
+```
+```bash
 # Senhas complexas
 python3 test_benign_requests.py -ist -v _tfidf -r 2000
+```
 
-# --- Modelo RF final (features combinadas) ---
-
+**Modelo RF Final — Features Combinadas:**
+```bash
 # Senhas simples
 python3 test_benign_requests.py -i -v _final -r 2000
-
+```
+```bash
 # Senhas complexas
 python3 test_benign_requests.py -is -v _final -r 2000
+```
 
-# --- Modelo XGBoost (features combinadas) ---
-
+**Modelo XGBoost — Features Combinadas:**
+```bash
 # Senhas simples
 python3 test_benign_requests.py -i -v _xgb -r 2000
-
+```
+```bash
 # Senhas complexas
 python3 test_benign_requests.py -is -v _xgb -r 2000
 ```
 
 **Modelos recém-treinados** (pasta `request_model_versions`):
 
-```bash
-# Remova a flag -i
-# Substitua {VERSAO} pelo número gerado durante o treinamento (ex: 0, 1, 2...)
-# Adicione -n para modelos numéricos ou -t para modelos TF-IDF
 
+- Remova a flag -i
+- Substitua {VERSAO} pelo número gerado durante o treinamento (ex: 0, 1, 2...)
+- Adicione -n para modelos numéricos ou -t para modelos TF-IDF
+
+```bash
 # Senhas simples
 python3 test_benign_requests.py -v {VERSAO} -r 2000
+```
 
+```bash
 # Senhas complexas
 python3 test_benign_requests.py -v {VERSAO} -r 2000 -s
 ```
@@ -871,13 +909,19 @@ Para reproduzir o experimento, digite os seguintes comandos no terminal:
 ```bash
 # Testar modelo de tfidf
 python3 test_request_model.py -it -v _tfidf
+```
 
+```bash
 # Para modelo de features numéricas:
 python3 test_request_model.py -in -v _numeric
+```
 
+```bash
 # Para modelo RF final: 
 python3 test_request_model.py -i -v _final
+```
 
+```bash
 # Para modelo XGB:
 python3 test_request_model.py -i -v _xgb
 ```
@@ -974,10 +1018,12 @@ cd webtrap-sbseg26
 source venv/bin/activate
 
 cd testing
-
+```
+```bash
 # Sem senhas complexas
 python3 test_benign.py -r 2000
-
+```
+```bash
 # Com senhas complexas
 python3 test_benign.py -s -r 2000
 ```
@@ -1049,13 +1095,17 @@ Os comandos variarão dependendo do seu cenário:
 
 ```bash
 sqlmap -u http://192.168.1.2:5000/search?q= --level 5
-
+```
+```bash
 sqlmap -u http://192.168.1.2:5000/search?q= --risk 3
-
+```
+```bash
 sqlmap -u http://192.168.1.2:5000/search?q= --level 5 --risk 3
-
+```
+```bash
 sqlmap -u http://192.168.1.2:5000/login?username= --level 5
-
+```
+```bash
 sqlmap -u http://192.168.1.2:5000/login?username= --level 5 --risk 3
 ```
 
@@ -1063,15 +1113,20 @@ sqlmap -u http://192.168.1.2:5000/login?username= --level 5 --risk 3
 
 ```bash
 cd sqlmap-dev
-
+```
+```bash
 python3 sqlmap.py -u http://192.168.1.2:5000/search?q= --level 5
-
+```
+```bash
 python3 sqlmap.py -u http://192.168.1.2:5000/search?q= --risk 3
-
+```
+```bash
 python3 sqlmap.py -u http://192.168.1.2:5000/search?q= --level 5 --risk 3
-
+```
+```bash
 python3 sqlmap.py -u http://192.168.1.2:5000/login?username= --level 5
-
+```
+```bash
 python3 sqlmap.py -u http://192.168.1.2:5000/login?username= --level 5 --risk 3
 ```
 
@@ -1120,7 +1175,8 @@ Caso não possua a ferramenta instalada, siga as instruções em https://github.
 sudo apt update
 
 sudo apt install git python3 python3-pip python3-pycurl python3-bs4 python3-geoip2 python3-gi python3-cairocffi python3-selenium
-
+```
+```bash
 git clone https://github.com/epsylon/xsser.git
 
 cd xsser
@@ -1160,7 +1216,8 @@ Os comandos variarão dependendo do seu cenário:
 
 ```bash
 xsser -u http://192.168.1.2:5000 -g 'search?q=XSS' --auto
-
+```
+```bash
 xsser -u http://192.168.1.2:5000/login -p 'username=XSS&pass=' --auto
 ```
 
@@ -1168,9 +1225,11 @@ xsser -u http://192.168.1.2:5000/login -p 'username=XSS&pass=' --auto
 
 ```bash
 cd xsser
-
+```
+```bash
 python3 xsser -u http://192.168.1.2:5000 -g 'search?q=XSS' --auto
-
+```
+```bash
 python3 xsser -u http://192.168.1.2:5000/login -p 'username=XSS&pass=' --auto
 ```
 
@@ -1229,7 +1288,8 @@ Os comandos variarão dependendo do seu cenário:
 
 ```bash
 commix -u http://192.168.1.2:5000/search?q=1 --level 3
-
+```
+```bash
 commix --method='POST' --data="username=&pass=" -u http://192.168.1.2:5000/login
 ```
 
@@ -1237,9 +1297,11 @@ commix --method='POST' --data="username=&pass=" -u http://192.168.1.2:5000/login
 
 ```bash
 cd commix
-
+```
+```bash
 python3 commix.py -u http://192.168.1.2:5000/search?q=1 --level 3
-
+```
+```bash
 python3 commix.py --method='POST' --data="username=&pass=" -u http://192.168.1.2:5000/login
 ```
 
@@ -1301,7 +1363,8 @@ Os comandos variarão dependendo do seu cenário:
 
 ```bash
 wfuzz -c -z file,/usr/share/wordlists/wfuzz/vulns/dirTraversal.txt "http://192.168.1.2:5000/search?q=FUZZ"
-
+```
+```bash
 wfuzz -c -z file,/usr/share/wordlists/wfuzz/Injections/Traversal.txt "http://192.168.1.2:5000/search?q=FUZZ"
 ```
 
@@ -1309,7 +1372,8 @@ wfuzz -c -z file,/usr/share/wordlists/wfuzz/Injections/Traversal.txt "http://192
 
 ```bash
 wfuzz -c -z file,/usr/share/wfuzz/wordlist/vulns/dirTraversal.txt "http://192.168.1.2:5000/search?q=FUZZ"
-
+```
+```bash
 wfuzz -c -z file,/usr/share/wfuzz/wordlist/Injections/Traversal.txt "http://192.168.1.2:5000/search?q=FUZZ"
 ```
 

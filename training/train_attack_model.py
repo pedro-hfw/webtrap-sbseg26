@@ -197,7 +197,7 @@ X = hstack([X_tfidf, X_numeric_sparse, X_method])
 # Mapeia classes para números (característica do XGB)
 if(ALGORITHM == 'XGB'):
 
-    Y = df["Class"].map({'Valid':0 , 'Anomalous':1})
+    Y = df["Class"].map({'SQLI':0 , 'XSS':1 , 'RCE':2 , 'LFI':3})
 
     model = XGBClassifier(
         n_estimators=200,      
