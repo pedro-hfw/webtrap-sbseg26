@@ -1141,7 +1141,7 @@ for the remaining tests, do you want to include all tests for 'Microsoft Access'
 
 it is recommended to perform only basic UNION tests if there is not at least one other (potential) technique found. Do you want to reduce the number of requests? [Y/n] n
 
-Are you sure that you want to continue with further target testing? [Y/n] Y
+[CRITICAL] heuristics detected that the target is protected by some kind of WAF/IPS are you sure that you want to continue with further target testing? [Y/n]  Y
 ```
 
 Para verificar a taxa de detecção do modelo, é possível analisar pelos dados impressos no terminal do WebTrap (por estar no modo de debug) ou analisando cuidadosamente pelo arquivo de log `requests.ndjson` em `honeypot/logs`.
